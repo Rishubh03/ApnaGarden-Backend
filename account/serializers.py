@@ -28,7 +28,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validate_data):
-        body = """\nHello {},\nThank you for joining ApnaGarden. We'd like to confirm that your account was created successfully.
+        body = """\n Hello {},\n Thank you for joining ApnaGarden. We'd like to confirm that your account was created successfully.
             """.format(validate_data['firstname'])
         data = {
                 'subject': 'Account Created',

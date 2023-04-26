@@ -2,14 +2,15 @@ from django.db import models
 from django.utils import timezone
 from account.models import User
 from garden.models import Garden
- 
+from employee_information.models import Worker
+
 # Create your models here.
 def upload_to(instance, filename):
     return 'images/{filename}'.format(filename=filename)
 
 class Complaint(models.Model):
     garden = models.ForeignKey(Garden, on_delete=models.CASCADE)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, null = True)
     title = models.CharField(max_length=100, verbose_name= 'Enter your complaint')
     details = models.TextField(verbose_name= 'Explain in more detail')
     image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
@@ -19,6 +20,7 @@ class Complaint(models.Model):
         (2, 'Solved')
     ]
     status = models.IntegerField(choices=status_choices, default=1)
+    assigned_to = models.ForeignKey(Worker, on_delete=models.CASCADE, related_name='assigned_to', blank=True, null=True)
     
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)

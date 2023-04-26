@@ -4,7 +4,7 @@ from tabnanny import verbose
 from django.db import models
 from django.utils import timezone
 from account.models import User
-
+from garden.models import Ward
 
 # Create your models here.
 class Department(models.Model):
@@ -79,3 +79,19 @@ class Leave(models.Model):
     
     class Meta:
         verbose_name_plural = "Leave"
+
+
+class Worker(models.Model):
+    worker_id = models.AutoField(primary_key=True, unique=True, verbose_name='Worker ID')
+    emp_id = models.OneToOneField(Employees, on_delete=models.PROTECT, verbose_name='Employee ID')
+    ward_id = models.ManyToManyField(Ward, verbose_name='Ward ID')
+    date_added = models.DateTimeField(default=timezone.now, verbose_name='Date Added') 
+    date_updated = models.DateTimeField(auto_now=True, verbose_name='Date Updated') 
+
+    def __str__(self):
+        return '{}'.format(self.emp_id)
+    
+    class Meta:
+        verbose_name_plural = "Worker"
+
+    

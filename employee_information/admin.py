@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Department, Employees, Leave
+from .models import Department, Employees, Leave, Worker
 
 # Register your models here.
 
@@ -40,3 +40,4 @@ class LeaveAdmin(admin.ModelAdmin):
         
         actions = [make_approve,make_rejected]
 
+admin.site.register(Worker)

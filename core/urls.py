@@ -30,4 +30,5 @@ urlpatterns = [
     path('api/employee/',include('employee_information.urls')),
     path('api/complaint/',include('complaint_management.urls')),
     path('api/feeds/',include('feeds.urls')),
+    path('api/forum/',include('forum.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

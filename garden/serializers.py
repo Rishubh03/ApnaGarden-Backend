@@ -20,7 +20,6 @@ class GardenSerializer(serializers.ModelSerializer):
 class RatingSerializer(serializers.ModelSerializer):
         id = serializers.IntegerField(read_only=True)
         user_id = serializers.CharField(source='user_id.firstname',)
-        garden_id = serializers.CharField(source='garden_id.garden_name')
         class Meta:
                 model = Ratings
                 fields = ('__all__')

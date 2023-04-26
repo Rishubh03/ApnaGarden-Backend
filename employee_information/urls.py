@@ -8,6 +8,7 @@ urlpatterns = [
     
     path('employees/', views.EmployeesList.as_view()),
     path('employees/<int:pk>/', views.EmployeesDetail.as_view()),
+    path('assigncomplaints/',views.assign_complaint),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

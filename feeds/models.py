@@ -13,7 +13,7 @@ class Post(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.title
+		return str(self.title)[:20]
 
 	def save(self,*args, **kwargs):
 		if not self.slug:
@@ -29,7 +29,7 @@ class PostComment(models.Model):
 	updated = models.DateTimeField(auto_now=True)
 
 	def __str__(self):
-		return self.comment
+		return str(self.comment)[:20]
 
 class PostLike(models.Model):
 	id = models.AutoField(primary_key=True)

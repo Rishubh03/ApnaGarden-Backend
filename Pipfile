@@ -23,6 +23,7 @@ social-auth-core = "*"
 social-auth-app-django = "*"
 django-quill-editor = "*"
 drf-api-logger = "*"
+django-allauth = "*"
 
 [dev-packages]
 autopep8 = "*"

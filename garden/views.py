@@ -107,6 +107,9 @@ class RatingTotal(APIView):
 		if rating is not None:
 			payload = {'rating': rating}
 			return Response(payload, status=status.HTTP_200_OK)
+		else:
+			payload = {'rating': 0}
+			return Response(payload, status=status.HTTP_200_OK)
 		
 class RatingList(APIView):
 	def get(self,request,garden_id,format=None):

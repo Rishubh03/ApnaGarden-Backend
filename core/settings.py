@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     # third party
     'corsheaders',
     'rest_framework',
@@ -57,7 +56,7 @@ INSTALLED_APPS = [
     'employee_information',
     'complaint_management',
     'feeds',
-    
+    'forum',    
 ]
 
 
@@ -95,6 +94,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
+
 
 # Rest Framework
 REST_FRAMEWORK = {

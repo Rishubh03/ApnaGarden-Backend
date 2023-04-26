@@ -10,7 +10,7 @@ class PostSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(label='ID', read_only=True)
     pub_date = serializers.DateTimeField(label='Published Date', read_only=True)
     updated = serializers.DateTimeField(label='Updated Date', read_only=True)
-
+    
     class Meta:
         model = Post
         fields = ['id', 'user_id', 'title',

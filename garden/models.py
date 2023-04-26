@@ -52,14 +52,17 @@ class Ratings(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def calculate_rating(garden_id):
-        rating_obj = Ratings.objects.filter(garden_id=garden_id)
-        total_rating = 0
-        total_count = rating_obj.count()
-        print(rating_obj)
-        for rating in rating_obj:
-            total_rating += rating.rating
+        try:
+            rating_obj = Ratings.objects.filter(garden_id=garden_id)
+            total_rating = 0
+            total_count = rating_obj.count()
+            print(rating_obj)
+            for rating in rating_obj:
+                total_rating += rating.rating
         
-        return round(total_rating/total_count,1)
+            return round(total_rating/total_count,1)
+        except ZeroDivisionError:
+            return 0
     
     def save(self, *args, **kwargs):
         if not self.rated:

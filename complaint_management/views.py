@@ -7,7 +7,7 @@ from .serializers import ComplaintSerializer, FeedbackSerializer, ComplaintCreat
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
-
+from complaint_management.utils import Util
 
 class CreateComplaint(APIView):
     """
@@ -20,6 +20,7 @@ class CreateComplaint(APIView):
         serializer = ComplaintCreateSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class ComplaintList(APIView):

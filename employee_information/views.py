@@ -1,12 +1,13 @@
 from django.http import Http404
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.views import APIView
-from .models import Department, Employees
+from .models import Department, Employees, Worker
 from .serializers import DepartmentSerializer, EmployeesSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from complaint_management.models import Complaint
+from garden.models import Garden
+from employee_information.utils import Util
 # Create your tests here.
 
 
@@ -105,4 +106,41 @@ class EmployeesDetail(APIView):
         employees = self.get_object(pk)
         employees.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def assign_complaint(request):
+    complaints = Complaint.objects.filter(assigned_to=None).order_by('id')
+    
+    for complaint in complaints:
+        garden = Garden.objects.get(id = complaint.garden.id)
+        workers = Worker.objects.filter(ward_id=garden.ward_id).order_by('?').first()
+
+        if workers:
+            complaint.assigned_to = workers
+            complaint.save()
+            body = f"""Dear {workers.emp_id.user.firstname},
+
+The new task has been assigned to you. Please check the below details.
+
+Here are the Complaint details:
+
+Complaint ID: {complaint.id}
+Garden Name: {complaint.garden}
+Ward: {garden.ward_id.ward_name}
+Complaint Title: {complaint.title}
+Complaint Description: {complaint.details}
+
+
+
+Thank you,
+Best regards,
+Apna Garden Team
+"""
+            data = {
+                'subject': f'New Complaint Assigned {complaint.id}',
+                'body': body,
+                'to_email': f'{workers.emp_id.user.email}',
+            }
+            Util.send_email(data)
+
 
